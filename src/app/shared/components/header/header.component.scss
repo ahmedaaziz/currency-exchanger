@@ -1,0 +1,33 @@
+.header {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  justify-content: space-between;
+  background-color: var(--blue);
+  color: var(--white);
+  padding:15px 5px;
+  &::selection {
+    color: var(--black);
+  }
+
+  h2 {
+    span {
+      font-weight: var(--weight-300);
+    }
+  }
+  ul {
+    display: flex;
+    li {
+      margin: 0 5px;
+        a {
+          color: var(--white);
+        }
+        &:hover {
+          border-bottom: 1px solid var(--white);
+        }
+        transition: all 0.3s ease-in-out;
+    }
+  }
+}
+
+

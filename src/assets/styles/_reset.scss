@@ -1,0 +1,47 @@
+/*-------------------------------*\
+      RESET
+\*-------------------------------*/
+
+*,
+ *::before,
+ *::after{
+  margin:0;
+  padding: 0;
+  box-sizing: border-box;
+}
+a {
+    text-decoration: none;
+}
+
+li {
+    list-style: none;
+}
+
+button {
+    background: none;
+    font: inherit;
+    border: none;
+    cursor: pointer;
+}
+
+img,
+button,
+a {
+    display: block;
+}
+
+span {
+    display: inline-block;
+}
+
+html {
+    overscroll-behavior:contain;
+}
+
+input {
+    display: block;
+    width: 100%;
+    font:inherit
+}
+
+input::placeholder {font:inherit}
