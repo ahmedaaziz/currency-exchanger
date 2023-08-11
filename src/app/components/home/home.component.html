@@ -1,0 +1,12 @@
+    <div class="title">
+    <h1>Currency Exchanger</h1>
+  </div>
+  <app-currency-convert-panel></app-currency-convert-panel>
+  <div class="currencies-cards row border">
+    <div class="column _33" *ngFor="let currency of popularCurrencies">
+      <div class="card">
+        <p>{{currency.name}}</p>
+      </div>
+    </div>
+  </div>
+
