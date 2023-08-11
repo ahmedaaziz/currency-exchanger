@@ -1,0 +1,47 @@
+.row {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  padding: 0 12px;
+}
+
+.column {
+  flex-basis: 100%;
+  padding: 0 12px;
+}
+
+.container {
+  margin-right: auto;
+  margin-left: auto;
+  padding: 0 15px;
+}
+
+@media screen and (min-width:800px) {
+  .column {
+    flex: 1;
+  }
+
+  ._25{
+    flex:2.5
+  }
+  ._33{
+    flex: 3.3;
+  }
+  ._50{
+    flex: 5;
+  }
+  ._66{
+    flex: 6.6;
+  }
+  ._75 {
+    flex: 7.5;
+  }
+
+}
+@media (min-width:1200px){
+  .container {
+    max-width: 1140px;
+  }
+}
+
+

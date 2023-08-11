@@ -1,15 +1,15 @@
 /* You can add global styles to this file, and also import other style files */
 @import url('./assets/styles/_reset.scss');
 @import url('./assets/styles/_variables.scss');
-@import url(./assets/styles/_helpers.scss);
+@import url('./assets/styles/_helpers.scss');
+@import url("./assets/styles/_grid.scss");
+@import url("./assets/styles/_cards.scss");
 
 body {
   font-family: 'Poppins',sans-serif;
 }
 
 
-.container {
-  padding: 0 15px;
-}
+
 
 

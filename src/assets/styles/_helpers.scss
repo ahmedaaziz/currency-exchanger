@@ -21,3 +21,25 @@
 .justify-content-center{justify-content: center;}
 .justify-space-between{justify-content: space-between;}
 .justify-space-arround{justify-content: space-around;}
+
+.button {
+  color: var(--white);
+  display: block;
+  width: 100%;
+  padding: 15px 10px;
+  line-height: 1.5;
+}
+
+.button--state-primary{
+  background-color: var(--blue);
+}
+.button--state-danger{
+  background: red;
+}
+.button--state-success{
+  background: green;
+}
+
+.border {
+  border: 1px solid hsla(0, 27%, 18%, 0.3);
+}
