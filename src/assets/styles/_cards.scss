@@ -2,15 +2,10 @@
   border: 1px solid hsl(0, 0%, 0%);
   text-align: center;
   padding: 3rem;
-  margin: 10px;
   min-height: 200px;
+  margin-bottom: 10px;
 }
 
 
 
-@media only screen and(min-width:800px) {
-  .card {
-    width:300px
 
-  }
-}

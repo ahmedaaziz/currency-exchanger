@@ -2,13 +2,22 @@
 @import url('./assets/styles/_reset.scss');
 @import url('./assets/styles/_variables.scss');
 @import url('./assets/styles/_helpers.scss');
-@import url("./assets/styles/_grid.scss");
 @import url("./assets/styles/_cards.scss");
+@import url("./assets/styles/_grid.scss");
 
 body {
   font-family: 'Poppins',sans-serif;
 }
 
+.title {
+  margin-top: 1rem;
+
+}
+.currencies-cards {
+  width: 100%;
+  padding: 3rem;
+  margin-top: 2rem;
+}
 
 
 

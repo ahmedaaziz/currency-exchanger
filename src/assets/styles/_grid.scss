@@ -3,6 +3,7 @@
   flex-direction: row;
   flex-wrap: wrap;
   padding: 0 12px;
+  margin: 10px 0;
 }
 
 .column {
@@ -36,7 +37,9 @@
   ._75 {
     flex: 7.5;
   }
-
+  .card {
+    width: 250px;
+  }
 }
 @media (min-width:1200px){
   .container {
