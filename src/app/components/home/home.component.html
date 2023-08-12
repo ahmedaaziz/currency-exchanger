@@ -1,12 +1,20 @@
     <div class="title">
     <h1>Currency Exchanger</h1>
   </div>
-  <app-currency-convert-panel></app-currency-convert-panel>
+
+  <app-currency-convert-panel (OnCurrenciesCreated)="getRates($event)"></app-currency-convert-panel>
+
+
   <div class="currencies-cards row border">
-    <div class="column _33" *ngFor="let currency of popularCurrencies">
+    <h2>Top currencies</h2>
+    <div class="row">
+    <div class="column _33" *ngFor="let currency of list">
       <div class="card">
-        <p>{{currency.name}}</p>
+        <p> <strong>{{currency.currencyCode}}  = </strong> </p>
+        <p>{{currency.currencyRate | number:'1.1-2'}} </p>
       </div>
+    </div>
+
     </div>
   </div>
 

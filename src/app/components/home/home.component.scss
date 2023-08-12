@@ -1,8 +1,9 @@
-.title {
-  margin-top: 1rem;
 
-}
-.currencies-cards {
-  padding: 3rem;
-  margin-top: 2rem;
+
+
+
+@media screen and (min-width:800) {
+    .card {
+    width:300px
+  }
 }
