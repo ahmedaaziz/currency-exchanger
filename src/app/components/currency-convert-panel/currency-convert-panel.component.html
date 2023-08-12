@@ -1,6 +1,7 @@
   <section class="currency-converter border">
-    <div class="row">
-        <div class="column _25">
+    <form [formGroup]="newForm" (ngSubmit)="convertCurrencies()">
+      <div class="row">
+        <div class="colum _25">
             <label for="currencyAmount">Amount</label>
             <input
                 type="number"
@@ -8,19 +9,20 @@
                 name="currencyAmount"
                 id="currencyAmount"
                 value="1"
+                formControlName="amount"
                 placeholder="Enter Currnecy amount "
-                min="1"
-                (change)="changeAmount($event)">
-          </div>
+                min="1">
+
+        </div>
           <div class="column _75">
             <div class="converter-panel">
                 <div class="exchangeFrom ">
                     <label for="exchangeFrom">From</label>
                     <select
-                    name="exchangeFrom"
+                    formControlName="from"
                     id="exchangeFrom"
-                    class="form-input"
-                    #fromCurrency (mouseleave)="changeCurrencyBase($event)">
+                    #fromCurrencyInput
+                    class="form-input">
                         <option
                             *ngFor="let currency of currencies"
                             [selected]="currency.cc == 'EUR'"
@@ -28,17 +30,15 @@
                             >{{currency.cc}}</option>
                     </select>
                 </div>
-                <div class="exchange-icon">
+                <div class="exchange-icon" (click)="swapper()">
                     <fa-icon [icon]="exchanger"></fa-icon>
                 </div>
                 <div class="exchangeTo ">
                     <label for="exchangeTo">To</label>
                     <select
-                    name="exchangeTo"
+                    formControlName="to"
                     id="exchangeTo"
-                    class="form-input"
-
-                     (mouseleave)="changeCurrencyExchange($event)">
+                    class="form-input">
                         <option
                             *ngFor="let currency of currencies"
                             [selected]="currency.cc == 'USD'"
@@ -52,23 +52,32 @@
                 </button>
             </div>
           </div>
-    </div>
+      </div>
+  <!-- <app-spinner></app-spinner> -->
+
+    </form>
+
+    <!-- Current Rate  -->
+    <!-- 1 EUR equals to 1 USD  -->
     <div class="row result">
       <div class="column _25 text-center">
         <div class="result__text border">
-          {{amount}} {{this.baseCurrency}} = {{this.result | number:'1.1'}}  {{this.toCurrency}}
+          1 {{this.newForm.controls['from'].value}} = {{this.toCurrencyRate | number:'1.2-2'}}  {{this.newForm.controls['to'].value}}
         </div>
       </div>
+    <!-- Showing Result -->
+
       <div class="column _50 text-center">
         <div class="currency-price border">
-          {{this.result | number:'1.1'}} {{this.toCurrency}}
+          {{this.result | number:'1.2-2'}} {{this.newForm.controls['to'].value}}
 
         </div>
       </div>
       <div class="column _25">
         <button
-        routerLink="/details"
-        class="button button--state-primary">
+        routerLink="/details/currency/47"
+        class="button button--state-primary"
+        (click)="navigateTo()">
           More Details
         </button>
       </div>

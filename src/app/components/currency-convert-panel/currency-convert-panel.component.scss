@@ -1,6 +1,7 @@
 .currency-converter {
     margin-top: 2rem;
     padding: 20px;
+    position: relative;
     label {
       font-size: 1rem;
     }
@@ -46,13 +47,4 @@
         margin: 10px 0;
       }
     }
-}
-
-
-
-@media screen and (min-width:800) {
-  .container {
-    width:1700px;
-    padding: 0;
-  }
 }

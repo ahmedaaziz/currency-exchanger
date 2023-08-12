@@ -1,96 +1,119 @@
+import { FormGroup,Validators,FormControl } from "@angular/forms";
 import { currencies } from './../../shared/currencies';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter, OnChanges, SimpleChanges } from '@angular/core';
 import { faArrowRightArrowLeft } from '@fortawesome/free-solid-svg-icons';
-import { Observable, filter, find, from, map, of } from "rxjs";
+import { from } from "rxjs";
 import { CurrenciesServiceService } from "src/app/services/currencies-service.service";
+import { Router } from "@angular/router";
 @Component({
   selector: 'app-currency-convert-panel',
   templateUrl: './currency-convert-panel.component.html',
   styleUrls: ['./currency-convert-panel.component.scss']
 })
-export class CurrencyConvertPanelComponent implements OnInit {
-
-  i:number = 1;
+export class CurrencyConvertPanelComponent implements OnInit,OnChanges {
+  // @ts-ignore
+  newForm:FormGroup;
   // fontawesome icon
   exchanger = faArrowRightArrowLeft;
-  baseCurrency:string = 'EUR'; // default currencies
-  toCurrency:string = 'USD'; // default currencies
   amount:number = 1;
   rate: any = {};
   rates: any[] = [];
   rateKeys: any[] = [];
   currencies:any = currencies;
   result:any = 0;
+  toCurrencyRate:number = 0;
+  fromId:number | null = null;
+  toId:number | null = null;
+  demo:any;
+  demo1:any;
 
-  constructor(private ratesService:CurrenciesServiceService){}
-  currencies$ = from(this.ratesService.getCurrenciesRates())
+  constructor(
+    private ratesService:CurrenciesServiceService,
+    private route:Router){}
+    currencies$ = from(this.ratesService.getCurrenciesRates())
 
-  ngOnInit(): void {
-    this.init()
+    @Input() fromCurrency:string = '';
+    @Input() toCurrency:string = '';
+    @Output() OnCurrenciesCreated:EventEmitter<any> = new EventEmitter();
+    ngOnInit(): void {
+    this.newForm = new FormGroup({
+      from: new FormControl("EUR",Validators.required),
+      to: new FormControl("USD",Validators.required),
+      amount: new FormControl(1,Validators.required)
+    })
+    this.init();
 
     //Called after the constructor, initializing input properties, and the first call to ngOnChanges.
     //Add 'implements OnInit' to the class.
     // this.getCurrencyRate(this.baseCurrency,this.toCurrency,this.amount);
   }
 
-init(){
-  this.currencies$.pipe().subscribe({
-    next:((data)=>{
-      this.rate = data;
-      this.rateKeys = Object.keys(this.rate)
-      console.log(this.rate);
-      console.log(this.rateKeys);
-      for(var i = 0; i<this.rateKeys.length; i++) {
-        this.rates.push({
-          code: this.rateKeys[i],
-          rate: this.rate[this.rateKeys[i]]
-        })
-      }
-      console.log(this.rates);
-    }),
-    error:((error)=>{
-      console.error(error.message)
-    }),
-    complete:(()=>{})
-  })
-}
-changeAmount(event:any) {
-  this.amount = event.target.value
-}
-changeCurrencyBase(event:any){
-  this.baseCurrency = event.target.value;
-  console.log(this.baseCurrency)
-}
-changeCurrencyExchange(event:any){
-  this.toCurrency = event.target.value;
-  console.log(this.toCurrency)
-}
+  init(){
+    this.currencies$.pipe().subscribe({
+      next:((data)=>{
+        this.rate = data;
+        this.rateKeys = Object.keys(this.rate)
+        for(var i = 0 ; i < this.rateKeys.length;i++) {
+          this.rates.push({
+            id:i + 1,
+            currencyCode: this.rateKeys[i],
+            currencyRate: this.rate[this.rateKeys[i]]
+          })
+        }
+        this.onCurrenciesUpdated(this.rates)
 
-
-/**
- * baseCurrency 1
- * Currency
- * amount
- */
-
+        console.log(this.rates)
+      }),
+      error:((err)=>{
+        console.error(err.message)
+      }),
+      complete:(()=>{})
+    })
+  }
+  ngOnChanges(changes: SimpleChanges): void {
+    console.log('this is ',changes);
+    this.newForm.controls[0].patchValue(changes['fromCurrency'].currentValue)
+  }
+  updateCurrencies(value:any){
+    this.OnCurrenciesCreated.emit(value)
+  }
 convertCurrencies() {
-  console.log(this.baseCurrency);
-
-  //get index of currencies
+  let from = this.newForm.controls["from"].value;
+  let to = this.newForm.controls["to"].value;
+  let amount = this.newForm.controls['amount'].value
+//get index of currencies
   let fromCurrencyIndex = this.rates.findIndex((rate)=> {
-   return  rate.code === this.baseCurrency
+   return  rate.currencyCode === from
   })
   let toCurrencyIndex = this.rates.findIndex((rate)=> {
-   return rate.code === this.toCurrency
+   return rate.currencyCode === to
   })
+  this.fromId = fromCurrencyIndex;
+  this.toId = toCurrencyIndex;
 
-  // get ration from & to
-  let ratio = this.rates[fromCurrencyIndex].rate / this.rates[toCurrencyIndex].rate
-  this.result = ratio * this.amount
-  console.log(ratio * this.amount);
+  // get ratio from & to
+  this.toCurrencyRate = this.rates[toCurrencyIndex].currencyRate / this.rates[fromCurrencyIndex].currencyRate;
 
-
-
+  let ratio = this.rates[toCurrencyIndex].currencyRate / this.rates[fromCurrencyIndex].currencyRate;
+  this.result = ratio * amount
 }
 
+onCurrenciesUpdated(event:any){
+    this.OnCurrenciesCreated.emit(event)
+}
+
+swapper(){
+  let from = this.newForm.controls["from"].value;
+  let to = this.newForm.controls["to"].value;
+  // let amount = this.newForm.controls['amount'].value
+  from = to
+}
+  navigateTo(){
+    let from = this.newForm.controls["from"].value;
+    let to = this.newForm.controls["to"].value;
+    let amount = this.newForm.controls['amount'].value;
+    console.log('clicked');
+    // this.route.navigate(['details/',{fromCurrency:from,toCurrency:to}]);
+    this.ratesService.navigatToURL(from,to)
+  }
 }
