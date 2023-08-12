@@ -19,7 +19,6 @@ export class HomeComponent implements OnInit{
 
   getRates(data:any){
     this.currenciesUpdated = data;
-    console.log(this.currenciesUpdated);
     this.filterRates(this.currenciesUpdated,this.popularCurrencies)
   }
 
@@ -32,8 +31,6 @@ export class HomeComponent implements OnInit{
         }
       }
     }
-    console.log(this.list);
-
   }
 
 

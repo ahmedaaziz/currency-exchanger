@@ -24,18 +24,15 @@ export class DetailsComponent implements OnInit {
   ){
       this.route.params.subscribe(params => {
       this.currencyDetails = params;
-      console.log(params);
       this.fromCurrency = params['fromCurrency'];
       this.toCurrency = params['toCurrency']
     })
   }
   ngOnInit(): void {
-    console.log(this.pastDate);
     this.historicalRates(this.pastDate,this.toCurrency);
   }
 
   historicalRates(date:string,toCurrency:string){
-    console.log('To Currency >> ', toCurrency);
     this.service.getHistoricalRates(date,this.toCurrency).pipe().subscribe(
       {
       next:((data)=>{
@@ -46,9 +43,6 @@ export class DetailsComponent implements OnInit {
           rate: data[currencies[i]]
         })
         }
-        console.log(currencies);
-        console.log(this.historicalRate);
-
       }),
       error:((err)=>{
         console.error(err.message)

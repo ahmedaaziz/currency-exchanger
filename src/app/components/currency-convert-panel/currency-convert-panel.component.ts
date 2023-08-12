@@ -61,8 +61,6 @@ export class CurrencyConvertPanelComponent implements OnInit,OnChanges {
           })
         }
         this.onCurrenciesUpdated(this.rates)
-
-        console.log(this.rates)
       }),
       error:((err)=>{
         console.error(err.message)
@@ -71,7 +69,6 @@ export class CurrencyConvertPanelComponent implements OnInit,OnChanges {
     })
   }
   ngOnChanges(changes: SimpleChanges): void {
-    console.log('this is ',changes);
     this.newForm.controls[0].patchValue(changes['fromCurrency'].currentValue)
   }
   updateCurrencies(value:any){
@@ -112,8 +109,6 @@ swapper(){
     let from = this.newForm.controls["from"].value;
     let to = this.newForm.controls["to"].value;
     let amount = this.newForm.controls['amount'].value;
-    console.log('clicked');
-    // this.route.navigate(['details/',{fromCurrency:from,toCurrency:to}]);
     this.ratesService.navigatToURL(from,to)
   }
 }
