@@ -1,15 +1,21 @@
 <nav class="header">
   <div class="logo">
-    <a  routerLink="/home" >
+    <a  routerLink="/" >
       <h2>
         Currency <span>Exchanger</span>
       </h2>
     </a>
   </div>
     <ul>
-      <li><a href="#">EUR-USD</a></li>
-      <li><a href="#">EUR-GBP</a></li>
+      <li>
+        <a (click)="navigateTo('EUR','USD')">
+          EUR-USD
+        </a>
+      </li>
+      <li>
+        <a (click)="navigateTo('EUR','GBP')">
+          EUR-GBP
+        </a>
+      </li>
     </ul>
 </nav>
-<div class="mobile--header"></div>
-<div class="desktop--header"></div>
