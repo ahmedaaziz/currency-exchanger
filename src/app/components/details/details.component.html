@@ -2,7 +2,7 @@
   <div class="row">
     <div class="column _50">
       <h2>
-        {{fromCurrency}}
+        {{fromCurrency}} to {{toCurrency}}
       </h2>
     </div>
     <div class="column _25">
@@ -16,7 +16,8 @@
   </div>
   <app-currency-convert-panel
    [fromCurrency]="fromCurrency"
-   [toCurrency]="toCurrency"></app-currency-convert-panel>
+   [toCurrency]="toCurrency"
+   [currencyAmount]="amount"></app-currency-convert-panel>
   <div class="row">
     <h2>Historical Charts</h2>
     <div class="currencies-cards row">

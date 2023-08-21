@@ -32,14 +32,15 @@ export class CurrencyConvertPanelComponent implements OnInit,OnChanges {
     private route:Router){}
     currencies$ = from(this.ratesService.getCurrenciesRates())
 
-    @Input() fromCurrency:string = '';
-    @Input() toCurrency:string = '';
+    @Input() fromCurrency:string = 'EUR';
+    @Input() toCurrency:string = 'USD';
+    @Input() currencyAmount:number = 1;
     @Output() OnCurrenciesCreated:EventEmitter<any> = new EventEmitter();
     ngOnInit(): void {
     this.newForm = new FormGroup({
-      from: new FormControl("EUR",Validators.required),
-      to: new FormControl("USD",Validators.required),
-      amount: new FormControl(1,Validators.required)
+      from: new FormControl(this.fromCurrency,Validators.required),
+      to: new FormControl(this.toCurrency,Validators.required),
+      amount: new FormControl(this.amount,Validators.required)
     })
     this.init();
 
@@ -102,7 +103,6 @@ onCurrenciesUpdated(event:any){
 swapper(){
   let from = this.newForm.controls["from"].value;
   let to = this.newForm.controls["to"].value;
-  // let amount = this.newForm.controls['amount'].value
   from = to
 }
   navigateTo(){

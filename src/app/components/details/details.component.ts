@@ -12,6 +12,7 @@ export class DetailsComponent implements OnInit {
   currencyDetails:{} = {};
   fromCurrency:string = '';
   toCurrency:string = '';
+  amount:number = 0 ;
   // date:any = new Date().toJSON().slice(0,10);
   today = new Date();
   lastYear = new Date().getFullYear() - 1 ;
